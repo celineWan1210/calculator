@@ -41,8 +41,13 @@ body {
 
 /* calculator screen result */
 .result {
-    font-size: 48px;
+    font-size: 24px;
     margin: 10px 20px;
+}
+
+.entered {
+    font-size: 48px;
+    margin: 5px 20px;
 }
 
 /* whole button set */
