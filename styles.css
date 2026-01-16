@@ -1,0 +1,77 @@
+* {
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* calculator body */
+.calculator-body {
+    width: 400px;
+    height: 660px;
+    background-color: #1C1C1C;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 24px;
+}
+
+/* calculator screen */ 
+.calculator-screen {
+    background-color: #D4D4D2;
+    margin: 40px 40px 30px 40px;
+    border-radius: 8px;
+
+    width: 320px;
+    height: 180px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+/* calculator screen result */
+.result {
+    font-size: 32px;
+    margin: 10px 20px;
+}
+
+/* whole button set */
+.button-set {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 40px 20px 40px;
+    gap: 8px;
+}
+
+.first-row-button, .second-row-button, .third-row-button, .fourth-row-button, .fifth-row-button{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* button design */
+button {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+    border: none;
+    background-color: #505050;
+
+    font-size: 24px;
+    color: #D4D4D2;
+}
+
+.divide, .multiply, .subtract, .add, .equal{
+    background-color: #FF9500;
+    font-size: 32px;
+}

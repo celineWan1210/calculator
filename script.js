@@ -52,18 +52,18 @@ function operate(a, b, operator) {
 }
 
 // test
-// test for calculate functions
-console.log(add(2, 3));
-console.log(subtract(2, 3));
-console.log(multiple(2, 3));
-console.log(divide(6,3));
-console.log(modulo(10, 9));
-console.log(reverse(100));
+// // test for calculate functions
+// console.log(add(2, 3));
+// console.log(subtract(2, 3));
+// console.log(multiple(2, 3));
+// console.log(divide(6,3));
+// console.log(modulo(10, 9));
+// console.log(reverse(100));
 
-// test for operator function
-console.log(operate(2,3,"+"));
-console.log(operate(2,3,"-"));
-console.log(operate(2,3,"*"));
-console.log(operate(6,3,"/"));
-console.log(operate(10,9,"%"));
-console.log(operate(3,0,"r"));
+// // test for operator function
+// console.log(operate(2,3,"+"));
+// console.log(operate(2,3,"-"));
+// console.log(operate(2,3,"*"));
+// console.log(operate(6,3,"/"));
+// console.log(operate(10,9,"%"));
+// console.log(operate(3,0,"r"));
