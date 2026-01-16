@@ -51,6 +51,19 @@ function operate(a, b, operator) {
     }
 }
 
+// select sceen
+const screenResult = document.querySelector(".result");
+const screenText = document.createElement("span");
+
+// select numbers button
+const seven = document.querySelector(".seven");
+
+// show on screen
+seven.addEventListener("click", () => {
+    screenText.textContent = "7";
+    screenResult.appendChild(screenText);
+})
+
 // test
 // // test for calculate functions
 // console.log(add(2, 3));
