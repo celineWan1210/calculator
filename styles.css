@@ -40,7 +40,7 @@ body {
 }
 
 /* calculator screen result */
-.result {
+.history {
     font-size: 24px;
     margin: 10px 20px;
 }

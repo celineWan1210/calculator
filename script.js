@@ -52,16 +52,53 @@ function operate(a, b, operator) {
 }
 
 // select sceen
-const screenResult = document.querySelector(".result");
-const screenText = document.createElement("span");
+const screenEntered = document.querySelector(".entered");
+const screenHistory = document.querySelector(".history")
 
+// screen entered text
+const screenEnteredText = document.createElement("span");
+// history text (should keep concatenate until equal)
+const screenHistoryText = document.createElement("span");
 // select numbers button
-const seven = document.querySelector(".seven");
+const sevenButton = document.querySelector(".seven");
+
+
+
+// select add button
+const addButton = document.querySelector(".add");
+// select equal button
+const equalButton = document.querySelector(".equal");
+
 
 // show on screen
-seven.addEventListener("click", () => {
-    screenText.textContent = "7";
-    screenResult.appendChild(screenText);
+// number 7
+sevenButton.addEventListener("click", () => {
+    screenEnteredText.textContent += "7";
+    screenEntered.appendChild(screenEnteredText);
+})
+
+// add operator
+addButton.addEventListener("click", () => {
+    screenEnteredText.textContent += "+";
+    screenEntered.appendChild(screenEnteredText);
+})
+
+// equal operator
+equalButton.addEventListener("click", () => {
+    // turn into array
+    enteredArray = Array.from(screenEnteredText.textContent);
+
+    a = Number(enteredArray[0]);
+    operator = enteredArray[1];
+    b = Number(enteredArray[2]);
+
+    const finalResult = operate(a, b, operator);
+
+    // append result to each screen
+    screenHistoryText.textContent = screenEnteredText.textContent;
+    screenHistory.appendChild(screenHistoryText);
+    screenEnteredText.textContent = finalResult;
+    screenEntered.appendChild(screenEnteredText);
 })
 
 // test
