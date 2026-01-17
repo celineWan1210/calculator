@@ -83,14 +83,42 @@ addButton.addEventListener("click", () => {
     screenEntered.appendChild(screenEnteredText);
 })
 
+// check index of first number (a) and get the number (a)
+function getNumberA(enteredArray) {
+    let a = "";
+    let i = 0;
+    for (i = 0; i < enteredArray.length; i++) {
+        if (enteredArray[i] != "+") {
+            a += enteredArray[i];
+        } else {
+            break;
+        }
+    }
+    return [a, i];
+}
+
+// get number b
+function getNumberB(enteredArray, bIndex) {
+    let b = "";
+    for (let i = bIndex; i < enteredArray.length; i++) {
+        b += enteredArray[i];
+    }
+    return b;
+}
+
 // equal operator
 equalButton.addEventListener("click", () => {
     // turn into array
     enteredArray = Array.from(screenEnteredText.textContent);
 
-    a = Number(enteredArray[0]);
-    operator = enteredArray[1];
-    b = Number(enteredArray[2]);
+    // get a, operator and b
+    a = Number(getNumberA(enteredArray)[0]);
+
+    operatorIndex = getNumberA(enteredArray)[1];
+    bIndex = operatorIndex + 1;
+
+    operator = enteredArray[operatorIndex];
+    b = Number(getNumberB(enteredArray, bIndex));
 
     const finalResult = operate(a, b, operator);
 
