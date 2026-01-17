@@ -69,16 +69,44 @@ screenEntered.appendChild(screenEnteredText);
 const calculateButton = document.querySelectorAll(".button-set");
 
 // button selector and result show
-let enteredInput = "";
+inputString = "";
 const operatorArray = ["+", "−", "×", "÷"]
 calculateButton.forEach((button) => {
     button.addEventListener("click", (e) => {
         // select button only
         if (e.target.tagName === "BUTTON") {
             // enter array until operator
-            enteredInput += e.target.textContent;
+            inputString += e.target.textContent;
+            screenEnteredText.textContent += e.target.textContent;
 
-            console.log(enteredInput);
+            if (e.target.textContent === "+" || e.target.textContent === "−" || e.target.textContent === "×" || e.target.textContent === "÷") {
+                operator = e.target.textContent;
+
+                for (let i = 0; i < inputString.length-1; i++) {
+                    a += inputString[i];
+                }   
+            }
+
+            if (operator.length != 0) {
+                for (let i = inputString.indexOf(operator) + 1; i < inputString.length; i++) {
+                    b += inputString[i];
+                }
+            }
+
+            if (b.length != 0) {
+                const finalNumber = operate(Number(a), Number(b), operator);
+
+                inputString = "";
+                a = finalNumber;
+                b = "";
+                operator = "";
+
+                console.log(a);
+            }
+
+            console.log(a);
+            console.log(b);
+            console.log(operator);
         } 
     });
 })
