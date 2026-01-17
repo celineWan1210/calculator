@@ -87,8 +87,11 @@ addButton.addEventListener("click", () => {
 function getNumberA(enteredArray) {
     let a = "";
     let i = 0;
+
+    const operateorList = ["+", "-", "*", "/"];
+
     for (i = 0; i < enteredArray.length; i++) {
-        if (enteredArray[i] != "+") {
+        if (! (operateorList.includes(enteredArray[i]))) {
             a += enteredArray[i];
         } else {
             break;
