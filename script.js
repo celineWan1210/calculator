@@ -29,20 +29,20 @@ function reverse(number) {
 
 
 // create variable (exp: 3(a) +(operator) 5(b))
-let a = 0;
+let a = "";
 let operator = "";
-let b = 0;
+let b = "";
 
 
 // operator function that call the calculate functions
 function operate(a, b, operator) {
     if (operator ==="+") {
         return add(a, b);
-    } else if (operator === "-") {
+    } else if (operator === "−") {
         return subtract(a, b);
-    } else if (operator === "*") {
+    } else if (operator === "×") {
         return multiple(a, b);
-    } else if (operator === "/") {
+    } else if (operator === "÷") {
         return divide(a, b);
     } else if (operator === "%") {
         return modulo(a, b);
@@ -59,78 +59,30 @@ const screenHistory = document.querySelector(".history")
 const screenEnteredText = document.createElement("span");
 // history text (should keep concatenate until equal)
 const screenHistoryText = document.createElement("span");
-// select numbers button
-const sevenButton = document.querySelector(".seven");
+// append child 
+screenEntered.appendChild(screenEnteredText);
+screenHistory.appendChild(screenHistoryText);
+screenEntered.appendChild(screenEnteredText);
 
 
+// select button
+const calculateButton = document.querySelectorAll(".button-set");
 
-// select add button
-const addButton = document.querySelector(".add");
-// select equal button
-const equalButton = document.querySelector(".equal");
+// button selector and result show
+let enteredInput = "";
+const operatorArray = ["+", "−", "×", "÷"]
+calculateButton.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        // select button only
+        if (e.target.tagName === "BUTTON") {
+            // enter array until operator
+            enteredInput += e.target.textContent;
 
-
-// show on screen
-// number 7
-sevenButton.addEventListener("click", () => {
-    screenEnteredText.textContent += "7";
-    screenEntered.appendChild(screenEnteredText);
+            console.log(enteredInput);
+        } 
+    });
 })
 
-// add operator
-addButton.addEventListener("click", () => {
-    screenEnteredText.textContent += "+";
-    screenEntered.appendChild(screenEnteredText);
-})
-
-// check index of first number (a) and get the number (a)
-function getNumberA(enteredArray) {
-    let a = "";
-    let i = 0;
-
-    const operateorList = ["+", "-", "*", "/"];
-
-    for (i = 0; i < enteredArray.length; i++) {
-        if (! (operateorList.includes(enteredArray[i]))) {
-            a += enteredArray[i];
-        } else {
-            break;
-        }
-    }
-    return [a, i];
-}
-
-// get number b
-function getNumberB(enteredArray, bIndex) {
-    let b = "";
-    for (let i = bIndex; i < enteredArray.length; i++) {
-        b += enteredArray[i];
-    }
-    return b;
-}
-
-// equal operator
-equalButton.addEventListener("click", () => {
-    // turn into array
-    enteredArray = Array.from(screenEnteredText.textContent);
-
-    // get a, operator and b
-    a = Number(getNumberA(enteredArray)[0]);
-
-    operatorIndex = getNumberA(enteredArray)[1];
-    bIndex = operatorIndex + 1;
-
-    operator = enteredArray[operatorIndex];
-    b = Number(getNumberB(enteredArray, bIndex));
-
-    const finalResult = operate(a, b, operator);
-
-    // append result to each screen
-    screenHistoryText.textContent = screenEnteredText.textContent;
-    screenHistory.appendChild(screenHistoryText);
-    screenEnteredText.textContent = finalResult;
-    screenEntered.appendChild(screenEnteredText);
-})
 
 // test
 // // test for calculate functions
