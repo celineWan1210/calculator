@@ -207,6 +207,35 @@ calculateButton.forEach((button) => {
     });
 })
 
+// select keydown -> and auto click it
+document.addEventListener("keydown", (e) => {
+    let key = e.key;
+
+    // prevent default for all selected key
+    if (
+        Number.isFinite(Number(key)) ||
+        ["+", "-", "*", "/", ".", "Enter", "Backspace", "%"].includes(key)
+    ) {
+        e.preventDefault();
+    }
+
+    // match key with symbol
+    if (key === "Enter") key = "=";
+    if (key === "Backspace") key = "D";
+    if (key === "*") key = "×";
+    if (key === "/") key = "÷";
+    if (key === "-") key = "−";
+
+    // Find the matching calculator button and stimulate key (use back the click function)
+    const button = [...document.querySelectorAll(".button-set button")]
+        .find(btn => btn.textContent === key);
+
+    if (button) {
+        button.click();
+    }
+});
+
+
 
 // test
 // // test for calculate functions
