@@ -142,12 +142,46 @@ calculateButton.forEach((button) => {
             }
 
             if (e.target.textContent === "D") {
+                const lastChar = screenEnteredText.textContent.slice(-1);
+
+                // Nothing to delete
+                if (!lastChar) return;
+
+                // After result is displayed
                 if (checkfinalResult) {
+                    // If no operator and no b, do NOT delete final result
+                    if (operator.length === 0 && b.length === 0) return;
+
+                    // If operator exists, delete last of b
+                    if (b.length > 0) {
+                        b = b.slice(0, -1);
+                        if (!b.includes(".")) isDecimal = false;
+                        screenEnteredText.textContent = screenEnteredText.textContent.slice(0, -1);
+                    } 
+                    // If lastChar is an operator, remove it
+                    else if (lastChar === "+" || lastChar === "−" || lastChar === "×" || lastChar === "÷" || lastChar === "%") {
+                        operator = "";
+                        operatorEntered = false;
+                        screenEnteredText.textContent = screenEnteredText.textContent.slice(0, -1);
+                    } 
                     return;
+                }
+
+                // Normal deletion before final result
+                screenEnteredText.textContent = screenEnteredText.textContent.slice(0, -1);
+
+                if (lastChar === "+" || lastChar === "−" || lastChar === "×" || lastChar === "÷" || lastChar === "%") {
+                    operator = "";
+                    operatorEntered = false;
+                } else if (operator.length === 0) {
+                    a = a.slice(0, -1);
+                    if (!a.includes(".")) isDecimal = false;
                 } else {
-                    screenEnteredText.textContent = screenEnteredText.textContent.slice(0, -1);
+                    b = b.slice(0, -1);
+                    if (!b.includes(".")) isDecimal = false;
                 }
             }
+
 
             //  when operator is pressed  
             // if b havent been entered -> append the operator to the screen and store the operator
