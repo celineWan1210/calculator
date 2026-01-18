@@ -69,44 +69,51 @@ screenEntered.appendChild(screenEnteredText);
 const calculateButton = document.querySelectorAll(".button-set");
 
 // button selector and result show
-inputString = "";
-const operatorArray = ["+", "−", "×", "÷"]
 calculateButton.forEach((button) => {
     button.addEventListener("click", (e) => {
         // select button only
         if (e.target.tagName === "BUTTON") {
-            // enter array until operator
-            inputString += e.target.textContent;
-            screenEnteredText.textContent += e.target.textContent;
+            // show on screen
 
-            if (e.target.textContent === "+" || e.target.textContent === "−" || e.target.textContent === "×" || e.target.textContent === "÷") {
-                operator = e.target.textContent;
-
-                for (let i = 0; i < inputString.length-1; i++) {
-                    a += inputString[i];
-                }   
-            }
-
-            if (operator.length != 0) {
-                for (let i = inputString.indexOf(operator) + 1; i < inputString.length; i++) {
-                    b += inputString[i];
+            // when number is pressed
+            // if operator is empty store in a else store in b
+            if (Number.isFinite(Number(e.target.textContent))) {
+                screenEnteredText.textContent += e.target.textContent;
+                if (operator.length === 0) {
+                    a += e.target.textContent;
+                } else {
+                    b += e.target.textContent;
                 }
             }
 
-            if (b.length != 0) {
-                const finalNumber = operate(Number(a), Number(b), operator);
+            //  when operator is pressed  
+            // if b havent been entered -> append the operator to the screen and store the operator
+            // if b has been entered (a, b which means its the next calculation) -> show final result and the operator (clear b and wait for b number)
+            if (e.target.textContent === "+" || e.target.textContent === "−" || e.target.textContent === "×" || e.target.textContent === "÷") {
+                if (b.length === 0) {
+                    operator = e.target.textContent;
+                    screenEnteredText.textContent += e.target.textContent;
+                } else {
+                    const finalResult = operate(Number(a), Number(b), operator);
+                    a = finalResult;
+                    b = "";
+                    operator = e.target.textContent;
 
-                inputString = "";
-                a = finalNumber;
-                b = "";
-                operator = "";
-
-                console.log(a);
+                    screenHistoryText.textContent = screenEnteredText.textContent;
+                    screenEnteredText.textContent = finalResult + operator;
+                }
             }
-
-            console.log(a);
-            console.log(b);
-            console.log(operator);
+            
+            // show result when = is pressed
+            if (e.target.textContent === "=") {
+                if (! (b.length === 0 && a.length === 0 && operator.length === 0)) {
+                    const finalResult = operate(Number(a), Number(b), operator);
+                    a = finalResult;
+                    b = "";
+                    screenHistoryText.textContent = screenEnteredText.textContent;
+                    screenEnteredText.textContent = finalResult;
+                }
+            }
         } 
     });
 })
