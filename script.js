@@ -29,7 +29,7 @@ function reverse(number) {
 
 
 // create variable (exp: 3(a) +(operator) 5(b))
-let a = "";
+let a = 0;
 let operator = "";
 let b = "";
 
@@ -74,11 +74,14 @@ function clear() {
     a = "";
     b = "";
     operator = "";
+
+    isDecimal = false;
 }
 
 let isError = false;
 let operatorEntered = false;
 let checkfinalResult = false;
+let isDecimal = false;
 // button selector and result show
 calculateButton.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -110,6 +113,19 @@ calculateButton.forEach((button) => {
                 }
             }
 
+            // add decimal to a / b
+            if (e.target.textContent === ".") {
+                if (! isDecimal) {
+                    screenEnteredText.textContent += e.target.textContent;
+                    isDecimal = true;
+
+                    if (operator.length === 0) {
+                        a += ".";
+                    } else {
+                        b += ".";
+                    }
+                 }
+            }
 
             // when number is pressed
             // if operator is empty store in a else store in b
@@ -181,6 +197,7 @@ calculateButton.forEach((button) => {
                 clear();
             }
         }
+        console.log(a);
     });
 })
 
