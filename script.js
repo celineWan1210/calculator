@@ -29,7 +29,7 @@ function reverse(number) {
 
 
 // create variable (exp: 3(a) +(operator) 5(b))
-let a = 0;
+let a = "";
 let operator = "";
 let b = "";
 
@@ -46,8 +46,6 @@ function operate(a, b, operator) {
         return divide(a, b);
     } else if (operator === "%") {
         return modulo(a, b);
-    } else if (operator === "r") {
-        return reverse(a);
     }
 }
 
@@ -131,7 +129,7 @@ calculateButton.forEach((button) => {
             // if operator is empty store in a else store in b
             if (Number.isFinite(Number(e.target.textContent))) {
                 // check if after new result a number is pressed
-                if (checkfinalResult) {
+                if ((operator.length === 0) && checkfinalResult) {
                     clear();
                     checkfinalResult = false;
                 }
@@ -141,6 +139,14 @@ calculateButton.forEach((button) => {
                     a += e.target.textContent;
                 } else {
                     b += e.target.textContent;
+                }
+            }
+
+            if (e.target.textContent === "D") {
+                if (checkfinalResult) {
+                    return;
+                } else {
+                    screenEnteredText.textContent = screenEnteredText.textContent.slice(0, -1);
                 }
             }
 
@@ -198,6 +204,7 @@ calculateButton.forEach((button) => {
             }
         }
         console.log(a);
+        console.log(operator);
     });
 })
 
@@ -209,7 +216,6 @@ calculateButton.forEach((button) => {
 // console.log(multiple(2, 3));
 // console.log(divide(6,3));
 // console.log(modulo(10, 9));
-// console.log(reverse(100));
 
 // // test for operator function
 // console.log(operate(2,3,"+"));
@@ -217,4 +223,3 @@ calculateButton.forEach((button) => {
 // console.log(operate(2,3,"*"));
 // console.log(operate(6,3,"/"));
 // console.log(operate(10,9,"%"));
-// console.log(operate(3,0,"r"));
