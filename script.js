@@ -78,6 +78,7 @@ function clear() {
 
 let isError = false;
 let operatorEntered = false;
+let checkfinalResult = false;
 // button selector and result show
 calculateButton.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -109,9 +110,16 @@ calculateButton.forEach((button) => {
                 }
             }
 
+
             // when number is pressed
             // if operator is empty store in a else store in b
             if (Number.isFinite(Number(e.target.textContent))) {
+                // check if after new result a number is pressed
+                if (checkfinalResult) {
+                    clear();
+                    checkfinalResult = false;
+                }
+
                 screenEnteredText.textContent += e.target.textContent;
                 if (operator.length === 0) {
                     a += e.target.textContent;
@@ -160,6 +168,8 @@ calculateButton.forEach((button) => {
 
                         screenHistoryText.textContent = screenEnteredText.textContent;
                         screenEnteredText.textContent = finalResult;
+
+                        checkfinalResult = true;
                       }
                 } else {
                     // = too early just ignore
