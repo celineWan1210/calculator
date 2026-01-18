@@ -73,7 +73,11 @@ calculateButton.forEach((button) => {
     button.addEventListener("click", (e) => {
         // select button only
         if (e.target.tagName === "BUTTON") {
-            // show on screen
+            // show button click with saturate change 
+            e.target.style.filter = 'saturate(50%)';
+            setTimeout(() => {
+                e.target.style.filter = "";
+            }, 150)
 
             // when number is pressed
             // if operator is empty store in a else store in b
@@ -89,7 +93,7 @@ calculateButton.forEach((button) => {
             //  when operator is pressed  
             // if b havent been entered -> append the operator to the screen and store the operator
             // if b has been entered (a, b which means its the next calculation) -> show final result and the operator (clear b and wait for b number)
-            if (e.target.textContent === "+" || e.target.textContent === "−" || e.target.textContent === "×" || e.target.textContent === "÷") {
+            if (e.target.textContent === "+" || e.target.textContent === "−" || e.target.textContent === "×" || e.target.textContent === "÷" || e.target.textContent === "%") {
                 if (b.length === 0) {
                     operator = e.target.textContent;
                     screenEnteredText.textContent += e.target.textContent;
@@ -106,15 +110,28 @@ calculateButton.forEach((button) => {
             
             // show result when = is pressed
             if (e.target.textContent === "=") {
-                if (! (b.length === 0 && a.length === 0 && operator.length === 0)) {
+                if (! (b.length === 0 || a.length === 0 || operator.length === 0)) {
                     const finalResult = Math.round((operate(Number(a), Number(b), operator)) * 100000) / 100000;
                     a = finalResult;
                     b = "";
+                    operator = "";
+
                     screenHistoryText.textContent = screenEnteredText.textContent;
                     screenEnteredText.textContent = finalResult;
+                } else {
+                    // = too early just ignore
+                    return;
                 }
             }
-        } 
+
+            if (e.target.textContent === "AC") {
+                screenEnteredText.textContent = "";
+                screenHistoryText.textContent = "";
+                a = "";
+                b = "";
+                operator = "";
+            }
+        }
     });
 })
 
