@@ -77,6 +77,7 @@ function clear() {
 }
 
 let isError = false;
+let operatorEntered = false;
 // button selector and result show
 calculateButton.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -99,6 +100,15 @@ calculateButton.forEach((button) => {
                 }
             }
 
+            // check if operator has been entered
+            if (operatorEntered) {
+                if (e.target.textContent === "+" || e.target.textContent === "−" || e.target.textContent === "×" || e.target.textContent === "÷" || e.target.textContent === "%") {
+                    return;
+                } else {
+                    operatorEntered = false;
+                }
+            }
+
             // when number is pressed
             // if operator is empty store in a else store in b
             if (Number.isFinite(Number(e.target.textContent))) {
@@ -117,6 +127,7 @@ calculateButton.forEach((button) => {
                 if (b.length === 0) {
                     operator = e.target.textContent;
                     screenEnteredText.textContent += e.target.textContent;
+                    operatorEntered = true;
                 } else {
                     const finalResult = Math.round((operate(Number(a), Number(b), operator)) * 100000) / 100000;
                     if (finalResult === Infinity) {
@@ -126,6 +137,7 @@ calculateButton.forEach((button) => {
                         a = finalResult;
                         b = "";
                         operator = e.target.textContent;
+                        operatorEntered = true;
 
                         screenHistoryText.textContent = screenEnteredText.textContent;
                         screenEnteredText.textContent = finalResult + operator;
