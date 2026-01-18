@@ -68,16 +68,36 @@ screenEntered.appendChild(screenEnteredText);
 // select button
 const calculateButton = document.querySelectorAll(".button-set");
 
+function clear() {
+    screenEnteredText.textContent = "";
+    screenHistoryText.textContent = "";
+    a = "";
+    b = "";
+    operator = "";
+}
+
+let isError = false;
 // button selector and result show
 calculateButton.forEach((button) => {
     button.addEventListener("click", (e) => {
         // select button only
         if (e.target.tagName === "BUTTON") {
             // show button click with saturate change 
-            e.target.style.filter = 'saturate(50%)';
+            e.target.style.filter = 'saturate(50%)  brightness(80%)';
             setTimeout(() => {
                 e.target.style.filter = "";
             }, 150)
+
+
+            // check if current input is error
+            if (isError) {
+                if (e.target.textContent === "AC") {
+                    clear();
+                    isError = false;
+                } else {
+                    return;
+                }
+            }
 
             // when number is pressed
             // if operator is empty store in a else store in b
@@ -99,12 +119,17 @@ calculateButton.forEach((button) => {
                     screenEnteredText.textContent += e.target.textContent;
                 } else {
                     const finalResult = Math.round((operate(Number(a), Number(b), operator)) * 100000) / 100000;
-                    a = finalResult;
-                    b = "";
-                    operator = e.target.textContent;
+                    if (finalResult === Infinity) {
+                        screenEnteredText.textContent = "Undefined";
+                        isError = true;
+                    } else {
+                        a = finalResult;
+                        b = "";
+                        operator = e.target.textContent;
 
-                    screenHistoryText.textContent = screenEnteredText.textContent;
-                    screenEnteredText.textContent = finalResult + operator;
+                        screenHistoryText.textContent = screenEnteredText.textContent;
+                        screenEnteredText.textContent = finalResult + operator;
+                    }
                 }
             }
             
@@ -112,12 +137,18 @@ calculateButton.forEach((button) => {
             if (e.target.textContent === "=") {
                 if (! (b.length === 0 || a.length === 0 || operator.length === 0)) {
                     const finalResult = Math.round((operate(Number(a), Number(b), operator)) * 100000) / 100000;
-                    a = finalResult;
-                    b = "";
-                    operator = "";
+                    
+                    if (finalResult === Infinity) {
+                        screenEnteredText.textContent = "Undefined";
+                        isError = true;
+                    } else {
+                        a = finalResult;
+                        b = "";
+                        operator = "";
 
-                    screenHistoryText.textContent = screenEnteredText.textContent;
-                    screenEnteredText.textContent = finalResult;
+                        screenHistoryText.textContent = screenEnteredText.textContent;
+                        screenEnteredText.textContent = finalResult;
+                      }
                 } else {
                     // = too early just ignore
                     return;
@@ -125,11 +156,7 @@ calculateButton.forEach((button) => {
             }
 
             if (e.target.textContent === "AC") {
-                screenEnteredText.textContent = "";
-                screenHistoryText.textContent = "";
-                a = "";
-                b = "";
-                operator = "";
+                clear();
             }
         }
     });
