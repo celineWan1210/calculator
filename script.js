@@ -60,7 +60,6 @@ const screenHistoryText = document.createElement("span");
 // append child 
 screenEntered.appendChild(screenEnteredText);
 screenHistory.appendChild(screenHistoryText);
-screenEntered.appendChild(screenEnteredText);
 
 
 // select button
@@ -158,6 +157,7 @@ calculateButton.forEach((button) => {
                     operator = e.target.textContent;
                     screenEnteredText.textContent += e.target.textContent;
                     operatorEntered = true;
+                    isDecimal = false;
                 } else {
                     const finalResult = Math.round((operate(Number(a), Number(b), operator)) * 100000) / 100000;
                     if (finalResult === Infinity) {
@@ -168,6 +168,7 @@ calculateButton.forEach((button) => {
                         b = "";
                         operator = e.target.textContent;
                         operatorEntered = true;
+                        isDecimal = false;
 
                         screenHistoryText.textContent = screenEnteredText.textContent;
                         screenEnteredText.textContent = finalResult + operator;
@@ -203,8 +204,6 @@ calculateButton.forEach((button) => {
                 clear();
             }
         }
-        console.log(a);
-        console.log(operator);
     });
 })
 
