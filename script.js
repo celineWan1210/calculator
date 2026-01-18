@@ -214,7 +214,7 @@ document.addEventListener("keydown", (e) => {
     // prevent default for all selected key
     if (
         Number.isFinite(Number(key)) ||
-        ["+", "-", "*", "/", ".", "Enter", "Backspace", "%"].includes(key)
+        ["+", "-", "*", "/", ".", "Enter", "Backspace", "%", "C"].includes(key)
     ) {
         e.preventDefault();
     }
@@ -225,6 +225,7 @@ document.addEventListener("keydown", (e) => {
     if (key === "*") key = "×";
     if (key === "/") key = "÷";
     if (key === "-") key = "−";
+    if (key === "C") key = "AC";
 
     // Find the matching calculator button and stimulate key (use back the click function)
     const button = [...document.querySelectorAll(".button-set button")]
