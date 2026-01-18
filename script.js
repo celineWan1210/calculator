@@ -94,7 +94,7 @@ calculateButton.forEach((button) => {
                     operator = e.target.textContent;
                     screenEnteredText.textContent += e.target.textContent;
                 } else {
-                    const finalResult = operate(Number(a), Number(b), operator);
+                    const finalResult = Math.round((operate(Number(a), Number(b), operator)) * 100000) / 100000;
                     a = finalResult;
                     b = "";
                     operator = e.target.textContent;
@@ -107,7 +107,7 @@ calculateButton.forEach((button) => {
             // show result when = is pressed
             if (e.target.textContent === "=") {
                 if (! (b.length === 0 && a.length === 0 && operator.length === 0)) {
-                    const finalResult = operate(Number(a), Number(b), operator);
+                    const finalResult = Math.round((operate(Number(a), Number(b), operator)) * 100000) / 100000;
                     a = finalResult;
                     b = "";
                     screenHistoryText.textContent = screenEnteredText.textContent;
